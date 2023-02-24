@@ -1,0 +1,223 @@
+/* COLORS */
+:root {
+    --background-color-content-dark: #1b1b1b;
+    --background-color-ui-dark: #1f1f1f;
+}
+
+/* MAIN COMPONENTS STYLING*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background-color-content-dark);
+    color: rgb(221, 221, 221);
+    font-family: "Poppins", sans-serif;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2em;
+    min-height: 13vh;
+    font-size: 1.5rem;
+    background-color: var(--background-color-ui-dark);
+}
+
+header>* {
+    margin: 0em 1em;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2em;
+    min-height: 5vh;
+    background-color: var(--background-color-ui-dark);
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+footer>* {
+    margin: 0em 1em;
+}
+
+/* ELEMENTS STYLING */
+form {
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    min-height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+form input,
+form button {
+    padding: 0.5rem;
+    font-size: 2rem;
+    border: none;
+    background: white;
+}
+
+form button {
+    color: #161616;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+form button:hover {
+    color: white;
+    background-color: var(--background-color-content-dark);
+}
+
+/* CLASSES */
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    list-style: none;
+}
+
+.todo {
+    margin: 0.5rem;
+    background: white;
+    color: var(--background-color-content-dark);
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+
+.todo li {
+    flex: 1;
+}
+
+.trash-btn,
+.complete-btn,
+.blocked-btn,
+.progress-btn {
+    background: var(--background-color-content-dark);
+    color: white;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease-in;
+    width: 50px;
+    height: 50px;
+}
+
+.complete-btn:hover {
+    background-color: rgb(0, 168, 0);
+    color: var(--background-color-content-dark);
+    /* background: linear-gradient(to left, var(--background-color-dark) 50%, salmon 50%) right;
+    background-size: 200%;
+    transition: .5s ease-out; */
+}
+
+.progress-btn:hover {
+    color: #ff9d0a;
+    /* background-color: var(--background-color-content-dark); */
+}
+
+.blocked-btn:hover {
+    /* background-color: var(--background-color-content-dark); */
+    color: #aa0000;
+}
+
+.trash-btn:hover {
+    /* background-color: var(--background-color-content-dark); */
+    color: #aa0000;
+}
+
+.todo-item {
+    padding: 0rem 0.5rem;
+    min-width: 300px;
+}
+
+.fa-trash,
+.fa-check,
+.fa-play,
+.fa-ban {
+    pointer-events: none;
+}
+
+.in-progress {
+    background-color: #dda34b;
+}
+
+.blocked {
+    color: #aa0000;
+    background-color: rgb(255, 188, 188);
+    opacity: 0.8;
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.fall {
+    transform: translateY(8rem) rotateZ(20deg);
+    opacity: 0;
+    transition-duration: 0.5s;
+}
+
+.blink-red {
+    animation-name: blinkRed;
+    animation-duration: 0.35s;
+    animation-iteration-count: 1;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+#loader-icon i {
+    position: relative;
+    max-width: 3rem;
+    max-height: 3rem;
+    padding: 0.5rem;
+    -webkit-filter: invert(1);
+    filter: invert(1);
+    animation: myOrbit 3s infinite cubic-bezier(.74, -0.53, .21, 1.35);
+}
+
+@keyframes myOrbit {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes blinkRed {
+    0% {
+        background-color: white;
+    }
+
+    30% {
+        background-color: #800000;
+    }
+
+    100% {
+        background-color: white;
+    }
+}
