@@ -4,6 +4,9 @@ const addTodoButton = document.querySelector('.button-add-todo');
 const todoList = document.querySelector('.todo-list');
 const loaderIcon = document.querySelector('#loader-icon');
 const addIconButton = document.querySelector('.fa-plus-square');
+const oneColumn = document.querySelector('.one');
+const twoColumn = document.querySelector('.two');
+const fourColumn = document.querySelector('.four'); 
 
 //input value
 let todoInputValue = "";
@@ -15,9 +18,11 @@ let loadedList;
 document.addEventListener("DOMContentLoaded", loadTodoListOnPageLoad);
 addTodoButton.addEventListener('click', addTodo);
 todoList.addEventListener('click', changeItemState);
+oneColumn.addEventListener('click', () => changeColumns(1));
+twoColumn.addEventListener('click', () => changeColumns(2));
+fourColumn.addEventListener('click', () => changeColumns(4));
 todoInput.oninput = () => setTodoInputValue(todoInput.value);
 todoInput.addEventListener("animationend", function() { 
-    console.log("animation ended");
     todoInput.classList.toggle("blink-red");
     addTodoButton.classList.toggle("blink-red");
     addIconButton.classList.toggle("blink-red");
@@ -95,14 +100,14 @@ function clearInputs() {
 function changeItemState(event) {
     const item = event.target;
     switch (item.classList[0]) {
-        case 'progress-btn': 
-            progressTodoItem(item.parentElement);    
+        case 'progress-btn':  
+            updateItemState(item.parentElement, "in-progress");    
         break;
         case 'blocked-btn': 
-            blockTodoItem(item.parentElement);    
+            updateItemState(item.parentElement, "blocked");   
         break;
         case 'complete-btn': 
-            completeTodoItem(item.parentElement);    
+            updateItemState(item.parentElement, "completed");   
         break;
         case 'trash-btn': 
             deleteTodoItem(item.parentElement);    
@@ -115,8 +120,8 @@ function changeItemState(event) {
 }
 
 function deleteTodoItem(item) {
+    hideLoadingIcon(false);
     try {
-        hideLoadingIcon(false);
         loadedList.splice(loadedList.findIndex(obj => obj.todoItemName == item.getElementsByClassName("todo-item")[0].innerText), 1);
         localStorage.setItem("todoList", JSON.stringify(loadedList));
 
@@ -135,42 +140,24 @@ function deleteTodoItem(item) {
     });
 }
 
-function progressTodoItem(item) {
+function updateItemState(item, state) {
     hideLoadingIcon(false);
-    loadedList.forEach(listItem => {
-        if (listItem.todoItemName === item.getElementsByClassName("todo-item")[0].innerText) {
-            listItem.state = "in-progress";
-        }
-    })
+
+    if (item.classList.contains(state)) {
+        loadedList.forEach(listItem => {
+            if (listItem.todoItemName === item.getElementsByClassName("todo-item")[0].innerText) {
+                listItem.state = "todo";
+            }
+        })
+    } else {   
+        loadedList.forEach(listItem => {
+            if (listItem.todoItemName === item.getElementsByClassName("todo-item")[0].innerText) {
+                listItem.state = state;
+            }
+        })
+    }
     localStorage.setItem("todoList", JSON.stringify(loadedList));
-
-    item.classList.toggle('in-progress');
-    hideLoadingIcon(true);
-}
-
-function blockTodoItem(item) {
-    hideLoadingIcon(false);
-    loadedList.forEach(listItem => {
-        if (listItem.todoItemName === item.getElementsByClassName("todo-item")[0].innerText) {
-            listItem.state = "blocked";
-        }
-    })
-    localStorage.setItem("todoList", JSON.stringify(loadedList));
-
-    item.classList.toggle('blocked');
-    hideLoadingIcon(true);
-}
-    
-function completeTodoItem(item) {
-    hideLoadingIcon(false);
-    loadedList.forEach(listItem => {
-        if (listItem.todoItemName === item.getElementsByClassName("todo-item")[0].innerText) {
-            listItem.state = "completed";
-        }
-    })
-    localStorage.setItem("todoList", JSON.stringify(loadedList));
-
-    item.classList.toggle('completed');
+    item.classList.toggle(state);
     hideLoadingIcon(true);
 }
 
@@ -293,5 +280,26 @@ function hideLoadingIcon(bool) {
         if (classList.contains("hidden")) {
             classList.remove("hidden");
         }
+    }
+}
+
+/**
+ * @description changes amount of columns to be displayed
+ * @param {number} columnsAmout
+ */
+function changeColumns(columnsAmout) {
+    switch (columnsAmout) {
+        case 1: 
+            console.log("number of columns: ONE");
+        break;
+        case 2: 
+            console.log("number of columns: TWO");
+        break;
+        case 4: 
+            console.log("number of columns: FOUR");
+        break;
+        default: 
+            console.log("unknown number of columns: ", columnsAmout);
+        break;
     }
 }
