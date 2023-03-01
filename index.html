@@ -18,17 +18,22 @@
 <body>
     <header>
         <div>
-            <i class="fas fa-user" aria-hidden="true" title="visit portfolio website"></i>
+            <button class="items-deleted"><i class="fas fa-history" aria-hidden="true"
+                    title="show deleted items"></i></button>
+            <button class="items-active hidden"><i class="fas fa-list hidden" aria-hidden="true"
+                    title="back to todo list"></i></button>
         </div>
         <h1>Project: TODO list</h1>
         <div>
-            <i class="fas fa-sun" aria-hidden="true" title="switch to dark theme"></i>
+            <!-- <i class="fas fa-sun" aria-hidden="true" title="switch to dark theme"></i> -->
             <i class="fa fa-moon" aria-hidden="true" title="switch to light theme"></i>
+            <!-- https://web.dev/patterns/theming/theme-switch/ -->
         </div>
     </header>
 
     <main>
-        <div class="columns-selection">
+        <div style="display:none" class="columns-selection">
+            <!-- TODO -->
             <p class="columns-text">Rozdělení na:</p>
             <button class="one">1 sloupec</button>
             <button class="two">2 sloupce</button>
@@ -51,7 +56,7 @@
     </main>
 
     <footer>
-        <h4>Šimon Zasadil</h4>
+        <h4 title="visit portfolio website"> <i class="fa fa-user"></i> Šimon Zasadil</h4>
         <h5>© 2023</h5>
     </footer>
     <script src="./app.js"></script>

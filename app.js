@@ -7,12 +7,15 @@ const addIconButton = document.querySelector('.fa-plus-square');
 const oneColumn = document.querySelector('.one');
 const twoColumn = document.querySelector('.two');
 const fourColumn = document.querySelector('.four'); 
+const showDeletedItemsButton = document.querySelector('.items-deleted'); 
+const showActiveItemsButton = document.querySelector('.items-active'); 
 
 //input value
 let todoInputValue = "";
 
 //local variable
 let loadedList;
+let deletedList;
 
 //Event listeners
 document.addEventListener("DOMContentLoaded", loadTodoListOnPageLoad);
@@ -21,6 +24,8 @@ todoList.addEventListener('click', changeItemState);
 oneColumn.addEventListener('click', () => changeColumns(1));
 twoColumn.addEventListener('click', () => changeColumns(2));
 fourColumn.addEventListener('click', () => changeColumns(4));
+showDeletedItemsButton.addEventListener('click', () => console.log("show deleted items"));
+showActiveItemsButton.addEventListener('click', () => console.log("show active items"));
 todoInput.oninput = () => setTodoInputValue(todoInput.value);
 todoInput.addEventListener("animationend", function() { 
     todoInput.classList.toggle("blink-red");
@@ -111,7 +116,7 @@ function changeItemState(event) {
         break;
         case 'trash-btn': 
             deleteTodoItem(item.parentElement);    
-        break;
+        return;
         default: 
             console.log("unknown class: "+item);    
         break;
@@ -122,7 +127,9 @@ function changeItemState(event) {
 function deleteTodoItem(item) {
     hideLoadingIcon(false);
     try {
-        loadedList.splice(loadedList.findIndex(obj => obj.todoItemName == item.getElementsByClassName("todo-item")[0].innerText), 1);
+        let itemValue = item.getElementsByClassName("todo-item")[0].innerText;
+        addToDeletedItems(itemValue);
+        loadedList.splice(loadedList.findIndex(obj => obj.todoItemName == itemValue), 1);
         localStorage.setItem("todoList", JSON.stringify(loadedList));
 
     } catch (err) {
@@ -183,13 +190,24 @@ function removePreviousState(buttonType, element) {
 
 async function addToLocalStorage(todoItemName) {
     try {
-        if (loadedList === undefined) throw new Error("localstorage failed to load");
+        if (loadedList === undefined) throw new Error("localstorage todo items failed to load");
 
         let todoList = await loadLocalStorage();
         let newTodoItem = {todoItemName, "state": "todo" };
         todoList.unshift(newTodoItem);
         localStorage.setItem("todoList", JSON.stringify(todoList));
         loadedList = todoList;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+async function addToDeletedItems(deletedItemName) {
+    try {
+        if (deletedList === undefined) throw new Error("localstorage deleted items failed to load");
+        let newDeletedItem = {deletedItemName, "date": Date.now() };
+        deletedList.push(newDeletedItem);
+        localStorage.setItem("deletedList", JSON.stringify(deletedList));
     } catch (err) {
         console.log(err);
     }
@@ -210,11 +228,27 @@ function loadLocalStorage() {
     })
 }
 
+function loadDeletedItems() {
+    return new Promise((resolve, reject) => {
+        try {
+            if (localStorage.getItem("deletedList") === null) {
+                deletedList = [];
+            } else {
+                deletedList = JSON.parse(localStorage.getItem("deletedList"));
+            }
+            resolve(deletedList); 
+        } catch (err) {
+            reject([]);
+        }
+    })
+}
+
 async function loadTodoListOnPageLoad() {
     hideLoadingIcon(false);
     let storedTodoList;
     try {
         storedTodoList = await loadLocalStorage();
+        deletedList = await loadDeletedItems();
     } catch (err) {
         console.log(err);
     }
