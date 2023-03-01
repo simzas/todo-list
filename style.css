@@ -1,7 +1,9 @@
 /* COLORS */
 :root {
     --background-color-content-dark: #1b1b1b;
-    --background-color-ui-dark: #1f1f1f;
+    --background-color-panels-dark: #1f1f1f;
+    --scrollbar-normal: #3b3b3b;
+    --scrollbar-onHover: #464646;
 }
 
 /* MAIN COMPONENTS STYLING*/
@@ -16,36 +18,40 @@ body {
     color: rgb(221, 221, 221);
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2em;
-    min-height: 13vh;
+    /* margin-bottom: 1.5em; */
+    min-height: calc(max(13vh, 100px));
     font-size: 1.5rem;
-    background-color: var(--background-color-ui-dark);
-}
-
-header>* {
-    margin: 0em 1em;
+    background-color: var(--background-color-panels-dark);
 }
 
 footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 2em;
-    min-height: 5vh;
-    background-color: var(--background-color-ui-dark);
+    /* margin-top: 1.5em; */
+    min-height: calc(max(5vh, 40px));
+    background-color: var(--background-color-panels-dark);
 }
 
 main {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1;
+    padding: 2em;
+}
+
+header>* {
+    margin: 0em 1em;
 }
 
 footer>* {
@@ -220,4 +226,27 @@ form button:hover {
     100% {
         background-color: white;
     }
+}
+
+/* SCROLLBAR */
+/* width */
+::-webkit-scrollbar {
+    width: 12px;
+    /* 
+    border-radius: 10px; */
+}
+
+/* background */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* color inactive */
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-normal);
+}
+
+/* on hover / on drag */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-onHover);
 }
