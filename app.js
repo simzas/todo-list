@@ -2,6 +2,7 @@
 const todoInput = document.querySelector('.todo-input');
 const addTodoButton = document.querySelector('.button-add-todo');
 const todoList = document.querySelector('.todo-list');
+const historyList = document.querySelector('#history-list');
 const loaderIcon = document.querySelector('#loader-icon');
 const addIconButton = document.querySelector('.fa-plus-square');
 const oneColumn = document.querySelector('.one');
@@ -9,6 +10,9 @@ const twoColumn = document.querySelector('.two');
 const fourColumn = document.querySelector('.four'); 
 const showDeletedItemsButton = document.querySelector('.items-deleted'); 
 const showActiveItemsButton = document.querySelector('.items-active'); 
+const sectionTodo = document.querySelector('#todo'); 
+const sectionHistory = document.querySelector('#history'); 
+const permanentDeleteHistory = document.querySelector('.permanent-delete-btn'); 
 
 //input value
 let todoInputValue = "";
@@ -24,8 +28,9 @@ todoList.addEventListener('click', changeItemState);
 oneColumn.addEventListener('click', () => changeColumns(1));
 twoColumn.addEventListener('click', () => changeColumns(2));
 fourColumn.addEventListener('click', () => changeColumns(4));
-showDeletedItemsButton.addEventListener('click', () => console.log("show deleted items"));
-showActiveItemsButton.addEventListener('click', () => console.log("show active items"));
+showDeletedItemsButton.addEventListener('click', switchToDeletedSection);
+showActiveItemsButton.addEventListener('click', switchToTodoSection);
+permanentDeleteHistory.addEventListener('click', deleteArchivedItems);
 todoInput.oninput = () => setTodoInputValue(todoInput.value);
 todoInput.addEventListener("animationend", function() { 
     todoInput.classList.toggle("blink-red");
@@ -97,6 +102,30 @@ function addTodo(event) {
     hideLoadingIcon(true);
 };
 
+function switchToDeletedSection(e) {
+    e.preventDefault();
+    
+    if (historyList.getElementsByTagName("li").length > 0) {
+        while (historyList.lastChild) {
+            historyList.removeChild(historyList.lastChild);
+        }
+    }
+    deletedList.forEach(deletedObject => showDeletedItemInList(deletedObject));
+    toggleHistorySwitcher();
+}
+
+function switchToTodoSection(e) {
+    e.preventDefault();
+    toggleHistorySwitcher();
+}
+
+function toggleHistorySwitcher() {
+    showDeletedItemsButton.classList.toggle('no-display');
+    showActiveItemsButton.classList.toggle('no-display');
+    sectionTodo.classList.toggle('no-display');
+    sectionHistory.classList.toggle('no-display');
+}
+
 function clearInputs() {
     todoInput.value = "";
     setTodoInputValue("");
@@ -145,6 +174,16 @@ function deleteTodoItem(item) {
         item.remove();
         hideLoadingIcon(true); 
     });
+}
+
+function deleteArchivedItems() {
+    localStorage.setItem("deletedList", JSON.stringify([]));
+    deletedList = [];
+    if (historyList.getElementsByTagName("li").length > 0) {
+        while (historyList.lastChild) {
+            historyList.removeChild(historyList.lastChild);
+        }
+    }
 }
 
 function updateItemState(item, state) {
@@ -336,4 +375,11 @@ function changeColumns(columnsAmout) {
             console.log("unknown number of columns: ", columnsAmout);
         break;
     }
+}
+
+function showDeletedItemInList(item) {
+    const deletedListItem = document.createElement('li');
+    deletedListItem.innerText = item.deletedItemName;
+    deletedListItem.title = "smazáno: "+new Date(item.date);
+    historyList.appendChild(deletedListItem);
 }

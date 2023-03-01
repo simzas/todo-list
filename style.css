@@ -4,7 +4,8 @@
     --background-color-panels-dark: #1f1f1f;
     --scrollbar-normal: #3b3b3b;
     --scrollbar-onHover: #464646;
-    --pure-white: white;
+    --light-white: rgb(235, 235, 235);
+    --progress-orange: #ff9d0a;
 }
 
 /* MAIN COMPONENTS STYLING*/
@@ -16,7 +17,7 @@
 
 body {
     background-color: var(--background-color-content-dark);
-    color: rgb(221, 221, 221);
+    color: rgb(235, 235, 235);
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
     display: flex;
@@ -41,12 +42,15 @@ footer {
 }
 
 main {
+    flex: 1;
+    padding: 2em;
+}
+
+section {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    flex: 1;
-    padding: 2em;
 }
 
 header>* {
@@ -68,7 +72,7 @@ form {
 }
 
 button {
-    color: var(--pure-white);
+    color: var(--light-white);
     width: 50px;
     height: 50px;
     border: none;
@@ -83,7 +87,7 @@ header button {
 }
 
 header button:hover {
-    color: grey;
+    color: rgb(170, 170, 170);
 }
 
 form input,
@@ -92,22 +96,39 @@ form button {
     padding: 0.5rem;
     font-size: 2rem;
     border: none;
-    background: var(--pure-white);
+    background: var(--light-white);
 }
 
 form button {
     color: #161616;
-    background-color: var(--pure-white);
+    background-color: var(--light-white);
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 form button:hover {
-    color: var(--pure-white);
+    color: var(--light-white);
     background-color: var(--background-color-content-dark);
 }
 
 /* CLASSES */
+#history h3 {
+    color: #800000;
+}
+
+.permanent-delete-btn {
+    width: auto;
+    text-transform: uppercase;
+    padding: 1em;
+    margin: 1em;
+    font-weight: 700;
+    background-color: var(--background-color-content-dark);
+}
+
+.permanent-delete-btn:hover {
+    color: #6b0000;
+}
+
 .todo-list {
     display: flex;
     flex-direction: column;
@@ -119,7 +140,7 @@ form button:hover {
 
 .todo {
     margin: 0.5rem;
-    background: var(--pure-white);
+    background: var(--light-white);
     color: var(--background-color-content-dark);
     font-size: 1.5rem;
     display: flex;
@@ -148,7 +169,7 @@ form button:hover {
 }
 
 .progress-btn:hover {
-    color: #ff9d0a;
+    color: var(--progress-orange);
     /* background-color: var(--background-color-content-dark); */
 }
 
@@ -205,6 +226,10 @@ form button:hover {
     visibility: hidden;
 }
 
+.no-display {
+    display: none;
+}
+
 #loader-icon i {
     position: relative;
     max-width: 3rem;
@@ -227,7 +252,7 @@ form button:hover {
 
 @keyframes blinkRed {
     0% {
-        background-color: var(--pure-white);
+        background-color: var(--light-white);
     }
 
     30% {
@@ -235,7 +260,7 @@ form button:hover {
     }
 
     100% {
-        background-color: var(--pure-white);
+        background-color: var(--light-white);
     }
 }
 

@@ -18,45 +18,59 @@
 <body>
     <header>
         <div>
-            <button class="items-deleted"><i class="fas fa-history" aria-hidden="true"
-                    title="show deleted items"></i></button>
-            <button class="items-active hidden"><i class="fas fa-list hidden" aria-hidden="true"
-                    title="back to todo list"></i></button>
+            <button class="items-deleted" title="show deleted items"><i class="fas fa-history"
+                    aria-hidden="true"></i></button>
+            <button class="items-active no-display" title="back to todo list"><i class="fas fa-list"
+                    aria-hidden="true"></i></button>
         </div>
         <h1>Project: TODO list</h1>
         <div>
-            <!-- <i class="fas fa-sun" aria-hidden="true" title="switch to dark theme"></i> -->
-            <i class="fa fa-moon" aria-hidden="true" title="switch to light theme"></i>
+            <button class="no-display" title="switch to dark theme"><i class="fas fa-sun"
+                    aria-hidden="true"></i></button>
+            <button title="WIP: switch to light theme"><i class="fas fa-moon" aria-hidden="true"></i></button>
             <!-- https://web.dev/patterns/theming/theme-switch/ -->
         </div>
     </header>
 
     <main>
-        <div style="display:none" class="columns-selection">
-            <!-- TODO -->
-            <p class="columns-text">Rozdělení na:</p>
-            <button class="one">1 sloupec</button>
-            <button class="two">2 sloupce</button>
-            <button class="four">4 sloupce</button>
-        </div>
-        <form>
-            <input type="text" class="todo-input">
-            <button class="button-add-todo" type="submit">
-                <i class="fas fa-plus-square"></i>
-            </button>
-        </form>
-        <div id="loader-icon" class="hidden slideDown">
-            <!-- <img src="./components/loading-icon.png" alt="loading icon" /> -->
-            <i class="fa fa-spinner" aria-hidden="true" alt="loading icon"></i>
-        </div>
+        <section id="todo">
+            <div style="display:none" class="columns-selection">
+                <!-- TODO -->
+                <p class="columns-text">Rozdělení na:</p>
+                <button class="one">1 sloupec</button>
+                <button class="two">2 sloupce</button>
+                <button class="four">4 sloupce</button>
+            </div>
+            <form>
+                <input type="text" class="todo-input">
+                <button class="button-add-todo" type="submit">
+                    <i class="fas fa-plus-square"></i>
+                </button>
+            </form>
+            <div id="loader-icon" class="hidden slideDown">
+                <!-- <img src="./components/loading-icon.png" alt="loading icon" /> -->
+                <i class="fa fa-spinner" aria-hidden="true" alt="loading icon"></i>
+            </div>
 
-        <ul class="todo-list">
+            <ul class="todo-list">
 
-        </ul>
+            </ul>
+        </section>
+        <section id="history" class="no-display">
+            <h3>
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                Trvale smazat všechny odstraněné záznamy?
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            </h3>
+            <button class="permanent-delete-btn">smazat</button>
+            <ul id="history-list">
+
+            </ul>
+        </section>
     </main>
 
     <footer>
-        <h4 title="visit portfolio website"> <i class="fa fa-user"></i> Šimon Zasadil</h4>
+        <h4 title="visit portfolio website"> <i class="fa fa-user"></i>&nbsp;&nbsp;Šimon Zasadil</h4>
         <h5>© 2023</h5>
     </footer>
     <script src="./app.js"></script>
