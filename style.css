@@ -5,7 +5,12 @@
     --scrollbar-normal: #3b3b3b;
     --scrollbar-onHover: #464646;
     --light-white: rgb(235, 235, 235);
+    --light-white-dark: rgb(170, 170, 170);
     --progress-orange: #ff9d0a;
+    --progress-orange-dark: #dda34b;
+    --light-red: #800000;
+    --super-light-red: rgb(255, 188, 188);
+    --complete-green: rgb(0, 168, 0);
 }
 
 /* MAIN COMPONENTS STYLING*/
@@ -17,7 +22,7 @@
 
 body {
     background-color: var(--background-color-content-dark);
-    color: rgb(235, 235, 235);
+    color: var(--light-white);
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
     display: flex;
@@ -87,7 +92,7 @@ header button {
 }
 
 header button:hover {
-    color: rgb(170, 170, 170);
+    color: var(--light-white-dark);
 }
 
 form input,
@@ -113,7 +118,7 @@ form button:hover {
 
 /* CLASSES */
 #history h3 {
-    color: #800000;
+    color: var(--light-red);
 }
 
 .permanent-delete-btn {
@@ -126,7 +131,7 @@ form button:hover {
 }
 
 .permanent-delete-btn:hover {
-    color: #6b0000;
+    color: var(--light-red);
 }
 
 .todo-list {
@@ -134,7 +139,7 @@ form button:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 30%;
+    max-width: 80%;
     list-style: none;
 }
 
@@ -147,45 +152,41 @@ form button:hover {
     justify-content: space-between;
     align-items: center;
     transition: all 0.5s ease;
+    max-width: 100%;
 }
 
 .todo li {
     flex: 1;
 }
 
-.trash-btn,
-.complete-btn,
-.blocked-btn,
-.progress-btn {
+.todo button {
     background: var(--background-color-content-dark);
 }
 
 .complete-btn:hover {
-    background-color: rgb(0, 168, 0);
+    background-color: var(--complete-green);
     color: var(--background-color-content-dark);
-    /* background: linear-gradient(to left, var(--background-color-dark) 50%, salmon 50%) right;
-    background-size: 200%;
-    transition: .5s ease-out; */
 }
 
 .progress-btn:hover {
     color: var(--progress-orange);
-    /* background-color: var(--background-color-content-dark); */
 }
 
 .blocked-btn:hover {
-    /* background-color: var(--background-color-content-dark); */
-    color: #aa0000;
+    color: var(--light-red);
 }
 
 .trash-btn:hover {
-    /* background-color: var(--background-color-content-dark); */
-    color: #aa0000;
+    color: var(--light-red);
 }
 
 .todo-item {
     padding: 0rem 0.5rem;
     min-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: calc(200px + 50vw);
+
 }
 
 .fa-trash,
@@ -196,12 +197,12 @@ form button:hover {
 }
 
 .in-progress {
-    background-color: #dda34b;
+    background-color: var(--progress-orange-dark);
 }
 
 .blocked {
-    color: #aa0000;
-    background-color: rgb(255, 188, 188);
+    color: var(--light-red);
+    background-color: var(--super-light-red);
     opacity: 0.8;
 }
 
@@ -256,7 +257,7 @@ form button:hover {
     }
 
     30% {
-        background-color: #800000;
+        background-color: var(--light-red);
     }
 
     100% {
